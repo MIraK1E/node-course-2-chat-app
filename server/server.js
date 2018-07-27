@@ -16,9 +16,21 @@ app.use(express.static(publicPath));
 io.on('connection', (socket) => {
     console.log('New User Connected');
 
+    socket.on('createMessage', (message) => {
+        console.log('created message', message);
+    });
+
+    socket.emit('newMessage', { text: 'Buy me some COCO' });
+
     socket.on('disconnect', () => {
         console.log('client disconnected');
-    })
+    });
+    // emit mean action the event and send data to another side
+    // socket.emit('newEmail', {
+    //     form: 'mike@exaple.com',
+    //     text: 'Hey. what is going on',
+    //     createdAt: 123
+    // });
 });
 
 app.get('/', (req, res) => {
