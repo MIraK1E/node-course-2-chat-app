@@ -18,19 +18,16 @@ io.on('connection', (socket) => {
 
     socket.on('createMessage', (message) => {
         console.log('created message', message);
+        io.emit('newMessage', {
+            from: message.form,
+            text: message.text,
+            createdAt: new Date().getTime()
+        });
     });
-
-    socket.emit('newMessage', { text: 'Buy me some COCO' });
 
     socket.on('disconnect', () => {
         console.log('client disconnected');
     });
-    // emit mean action the event and send data to another side
-    // socket.emit('newEmail', {
-    //     form: 'mike@exaple.com',
-    //     text: 'Hey. what is going on',
-    //     createdAt: 123
-    // });
 });
 
 app.get('/', (req, res) => {
